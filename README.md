@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Code Editor Project
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is a code editor designed to showcase front-end development skills using Next.js. It serves as a demonstration of modern front-end technologies and best practices, providing a robust and interactive user interface for writing and editing code. The project utilizes a variety of libraries and frameworks to deliver a seamless and efficient coding experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technologies Used
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Next.js**: A React framework for server-rendered or statically exported React applications.
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A statically typed superset of JavaScript that enhances code quality and maintainability.
+- **CSS Modules**: Scoped and modular CSS to avoid style conflicts.
+- **React Icons**: Easy-to-use icons from popular icon libraries.
+- **Webpack**: A module bundler for JavaScript applications (used internally by Next.js).
+- **Babel**: A JavaScript compiler for next-generation JavaScript features (used internally by Next.js).
+- **ESLint**: A tool for identifying and fixing code quality issues.
+- **Prettier**: An opinionated code formatter to ensure consistent code style.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To set up the project locally, follow these steps:
 
-## Learn More
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/code-editor-project.git
+    cd code-editor-project
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+4. Open your browser and navigate to `http://localhost:3000` to see the project in action.
 
-## Deploy on Vercel
+## Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Open the Code Editor:** The editor interface will be presented upon launching the application.
+2. **Create or Open a File:** Use the file management options to create a new file or open an existing one.
+3. **Edit Code:** Write or modify your code within the editor. Syntax highlighting and autocompletion features will assist you.
+4. **Preview Output:** View the real-time output of your code in the preview pane.
+5. **Save Your Work:** Save your progress through the provided options.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+We welcome contributions to enhance the functionality and features of this code editor. To contribute:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes and commit them (`git commit -m 'Add YourFeature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Contact
+
+If you have any questions, suggestions, or feedback, please feel free to contact us at your-email@example.com.
+
+---
+
+Thank you for checking out our Code Editor project! We hope it demonstrates the potential of modern front-end development techniques and inspires you to create amazing applications.
