@@ -1,52 +1,54 @@
 'use client'
 
 import Button from "@/components/atoms/Button";
-import { DirectoryTreeItem, defaultDirectoryTreeItem } from "@/entities/directory-tree";
-import { useActiveFileContext } from "@/hooks/useActiveFileContext";
+import { DirectoryTreeNodeType, defaultDirectoryTreeItem } from "@/entities/directory-tree";
+import useDirectoryTree from "@/hooks/useDirectoryTree";
 import { getActiveFileInDirectoryTree, getUpdatedDirectoryTree } from "@/utils/updateDirectoryTree";
-import { useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
+import EditorHeader from "../EditorHeader";
 
 export default function EditorContent() {
-    const { value, setValue } = useActiveFileContext();
+    const { directoryTree, setDirectoryTree } = useDirectoryTree();
     const [inputValue, setInputValue] = useState("");
-    const [currentFile, setCurrentFile] = useState<DirectoryTreeItem>(defaultDirectoryTreeItem);
-
+    const [currentFile, setCurrentFile] = useState<DirectoryTreeNodeType>(defaultDirectoryTreeItem);
 
     useEffect(() => {
-        const fileItem = getActiveFileInDirectoryTree(value)
+        const fileItem = getActiveFileInDirectoryTree(directoryTree)
         if (fileItem) {
             setInputValue(fileItem?.value || "")
             setCurrentFile(fileItem)
         }
-    }, [value])
+    }, [directoryTree])
 
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputValue(event.target.value);
     };
 
-    const handleClick = () => {
-        const newDirectoryTree = getUpdatedDirectoryTree(value, { ...currentFile, value: inputValue })
-        setValue(newDirectoryTree)
+    const handleSave = () => {
+        const newDirectoryTree = getUpdatedDirectoryTree(directoryTree, { ...currentFile, value: inputValue })
+        setDirectoryTree(newDirectoryTree)
+    };
+
+    const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if ((event.metaKey || event.ctrlKey) && event.key === 's') {
+            event.preventDefault();
+            handleSave();
+        }
     };
 
     return (
         <>
             {currentFile?.isSelected === true ?
                 <div className="w-full">
-                    <div className="text-white py-4 px-6 sticky top-0 z-10 flex items-center justify-end border-b-2 border-gray-700">
-                       <div className="flex items-center">
-                            <Button label="Save" onClick={handleClick} />
-                        </div>
-                        
-                    </div>
-
+                    <EditorHeader handleSave={handleSave} hasUnsavedChanges={inputValue !== currentFile.value}/>
                     <textarea
+                        onKeyDown={handleKeyDown}
                         value={inputValue}
                         onChange={handleInputChange}
                         rows={20}
                         cols={50}
-                        placeholder="Enter new value here..."
-                        className={inputValue === currentFile.value ? "w-full text-white bg-gray-800 p-4" : "w-full text-yellow-400 bg-gray-800 p-4"}
+                        placeholder="Enter your file content..."
+                        className={"w-full text-white bg-gray-800 p-4"}
                     />
                 </div>
                 :

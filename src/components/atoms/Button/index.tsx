@@ -14,8 +14,8 @@ const Button: React.FC<ButtonProps> = ({ label, onClick }) => {
     };
 
     return(
-        <button onClick={handleClick} className="cursor-pointer h-10 w-10 hover:text-gray-200 items-center justify-center flex">
-            <p>{label}</p>
+        <button onClick={handleClick} className="cursor-pointer h-10 hover:bg-gray-600 items-center justify-center flex">
+            <p className="px-4">{label}</p>
         </button>
     )
 };

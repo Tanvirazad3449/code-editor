@@ -1,39 +1,50 @@
-
 import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, fireEvent, RenderResult } from '@testing-library/react';
 import FileItem from '.';
+import { DirectoryTreeNodeType } from '@/entities/directory-tree';
+import useDirectoryTree from '@/hooks/useDirectoryTree';
+import * as updateDirectoryTree from '@/utils/updateDirectoryTree';
 
-// Mock the styles module
-jest.mock('./FileItem.module.css', () => ({
-    container: 'mocked-container',
-    icon: 'mocked-icon',
-}));
+// Mock the useDirectoryTree hook
+jest.mock('@/hooks/useDirectoryTree');
 
-// Mock the react-icons library
-jest.mock('react-icons/cg', () => ({
-    CgFile: jest.fn(() => <span data-testid="mocked-icon" />),
-}));
+const mockItem: DirectoryTreeNodeType = {
+  id: '1',
+  type: 'file',
+  name: 'Test File',
+  isSelected: false,
+};
 
-describe('FileItem', () => {
-    it('renders the title correctly', () => {
-        const title = 'Test File';
-        const { getByText } = render(<FileItem title={title} />);
+describe('FileItem component', () => {
+  let renderResult: RenderResult;
+  let setDirectoryTreeMock: jest.Mock;
 
-        expect(getByText(title)).toBeInTheDocument();
+  beforeEach(() => {
+    setDirectoryTreeMock = jest.fn();
+    (useDirectoryTree as jest.Mock).mockReturnValue({
+      directoryTree: [mockItem],
+      setDirectoryTree: setDirectoryTreeMock,
     });
+    renderResult = render(<FileItem item={mockItem} />);
+  });
 
-    it('renders the icon correctly', () => {
-        const title = 'Test File';
-        const { getByTestId } = render(<FileItem title={title} />);
+  it('renders file item correctly', () => {
+    const { getByText } = renderResult;
+    
+    const fileNameElement = getByText('Test File');
+    expect(fileNameElement).toBeInTheDocument();
+  });
 
-        expect(getByTestId('mocked-icon')).toBeInTheDocument();
-    });
+  it('handles click event correctly', () => {
+    const { getByText } = renderResult;
+    
+    // Mock the setActiveFileInDirectoryTree function
+    jest.spyOn(updateDirectoryTree, 'setActiveFileInDirectoryTree').mockReturnValue([mockItem]);
 
-    it('applies the correct styles', () => {
-        const title = 'Test File';
-        const { container } = render(<FileItem title={title} />);
+    const fileItem = getByText('Test File').parentElement!;
+    fireEvent.click(fileItem);
 
-        expect(container.firstChild).toHaveClass('mocked-container');
-    });
+    expect(setDirectoryTreeMock).toHaveBeenCalled();
+    expect(updateDirectoryTree.setActiveFileInDirectoryTree).toHaveBeenCalledWith([mockItem], '1');
+  });
 });

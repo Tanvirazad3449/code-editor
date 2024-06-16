@@ -1,19 +1,19 @@
-export type DirectoryTreeItem = {
+export type DirectoryTreeNodeType = {
     id: string;
     type: 'folder' | 'file';
     name: string;
-    children?: DirectoryTreeItem[];
+    children?: DirectoryTreeNodeType[];
     value?:string;
     isSelected?:boolean;
 };
 
 
-export type DirectoryTreeContext = {
-    value: DirectoryTreeItem[];
-    setValue: (newValue: DirectoryTreeItem[]) => void;
+export type DirectoryTreeContextType = {
+    directoryTree: DirectoryTreeNodeType[];
+    setDirectoryTree: (newValue: DirectoryTreeNodeType[]) => void;
 };
 
-export const defaultDirectoryTreeItem: DirectoryTreeItem = {
+export const defaultDirectoryTreeItem: DirectoryTreeNodeType = {
     id: '',
     type: 'file',
     name: '',
