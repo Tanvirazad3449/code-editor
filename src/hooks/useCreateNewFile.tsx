@@ -1,32 +1,26 @@
 import { DirectoryTreeNodeType } from "@/entities/directory-tree";
 import useDirectoryTree from "./useDirectoryTree";
-import { v4 as uuidv4 } from 'uuid';
-import { getUpdatedDirectoryTreeWithNewItem, resetAllActiveFileInDirectoryTree, setActiveFileInDirectoryTree } from "@/utils/updateDirectoryTree";
+import { resetAllActiveFileInDirectoryTree } from "@/utils/helpers/resetAllActiveFileInDirectoryTree";
+import { getNewFile } from "@/utils/helpers/getNewFileNode";
+import { getUpdatedDirectoryTreeWithNewItem } from "@/utils/helpers/getUpdatedDirectoryTreeWithNewItem";
 
 const useCreateNewFile = () => {
     const { directoryTree, setDirectoryTree } = useDirectoryTree();
 
     const createNewFile = (newFileName: string, parentFolder?: DirectoryTreeNodeType) => {
-        const uniqueId = uuidv4();
-        const newFile: DirectoryTreeNodeType = {
-            id: uniqueId,
-            type: 'file',
-            name: newFileName,
-            value: '',
-            isSelected: true
-        };
+        const newFile = getNewFile(newFileName)
 
-        let newD = resetAllActiveFileInDirectoryTree(directoryTree)
-        let newChildren = resetAllActiveFileInDirectoryTree(parentFolder?.children || [])
+        let updatedDirectory = resetAllActiveFileInDirectoryTree(directoryTree)
+        let updatedChildren = resetAllActiveFileInDirectoryTree(parentFolder?.children || [])
         let newDirectoryTree;
         if (parentFolder) {
             const updatedFolder = { 
                 ...parentFolder, 
-                children: [...(newChildren || []), newFile]
+                children: [...(updatedChildren || []), newFile]
             };
-            newDirectoryTree = getUpdatedDirectoryTreeWithNewItem(newD, updatedFolder);
+            newDirectoryTree = getUpdatedDirectoryTreeWithNewItem(updatedDirectory, updatedFolder);
         } else {
-            newDirectoryTree = [...newD, newFile];
+            newDirectoryTree = [...updatedDirectory, newFile];
         }
 
         setDirectoryTree(newDirectoryTree);

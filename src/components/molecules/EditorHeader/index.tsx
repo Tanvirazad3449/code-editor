@@ -1,5 +1,4 @@
 import Button from "@/components/atoms/Button"
-import IconButton from "@/components/atoms/IconButton";
 
 interface EditorHeaderProps {
     handleSave: () => void;
@@ -19,7 +18,6 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ handleSave, hasUnsavedChang
                     <p className="text-green-400 mr-4">• Saved</p>
                 </div>
                 }
-                <IconButton type="keyboard-shortcuts" onClick={()=>console.log('hello')}/>
         </div>
 
     )

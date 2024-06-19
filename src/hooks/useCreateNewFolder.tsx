@@ -1,19 +1,13 @@
 import { DirectoryTreeNodeType } from "@/entities/directory-tree";
 import useDirectoryTree from "./useDirectoryTree";
-import { v4 as uuidv4 } from 'uuid';
-import { getUpdatedDirectoryTreeWithNewItem } from "@/utils/updateDirectoryTree";
+import { getUpdatedDirectoryTreeWithNewItem } from "@/utils/helpers/getUpdatedDirectoryTreeWithNewItem";
+import { getNewFolderNode } from "@/utils/helpers/getNewFolderNode";
 
 const useCreateNewFolder = () => {
     const { directoryTree, setDirectoryTree } = useDirectoryTree();
 
     const createNewFolder = (newFolderName: string, parentFolder?: DirectoryTreeNodeType) => {
-        const uniqueId = uuidv4();
-        const newFolder: DirectoryTreeNodeType = {
-            id: uniqueId,
-            type: 'folder',
-            name: newFolderName,
-            children: []
-        };
+        const newFolder = getNewFolderNode(newFolderName)
 
         let newDirectoryTree;
         if (parentFolder) {

@@ -5,7 +5,7 @@ import Sidebar from '@/components/organisms/Sidebar';
 import { DirectoryTreeProvider } from '@/contexts/DirectoryTreeContext';
 import React, { useState } from 'react';
 
-const ResizableColumns: React.FC = () => {
+const MainLayout: React.FC = () => {
   const [leftWidth, setLeftWidth] = useState<number>(20);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -51,4 +51,4 @@ const ResizableColumns: React.FC = () => {
   );
 };
 
-export default ResizableColumns;
+export default MainLayout;
