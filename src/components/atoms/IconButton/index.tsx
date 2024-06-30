@@ -36,7 +36,7 @@ const IconButton: React.FC<IconButtonProps> = ({ type, onClick }) => {
         <div>
             <Tooltip title={getTooltipContent(type)}>
 
-            <button onClick={handleClick} className="cursor-pointer h-10 w-10 hover:bg-slate-600 items-center justify-center flex">
+            <button name={type} role='button' onClick={handleClick} className="cursor-pointer h-10 w-10 hover:bg-slate-600 items-center justify-center flex">
                 <IconComponent size={16}/>
             </button>
             </Tooltip>

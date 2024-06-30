@@ -1,4 +1,5 @@
-// src/components/molecules/HoverableButton.tsx
+'use client'
+
 import React, { useState } from 'react';
 import IconButton from '@/components/atoms/IconButton';
 import icons from '@/utils/icons';
@@ -13,7 +14,6 @@ interface HoverableButtonProps {
 
 const HoverableButton: React.FC<HoverableButtonProps> = ({ title, onAddFile, onAddFolder, isExpanded, toggleExpand }) => {
     const [isHovered, setIsHovered] = useState(false);
-
     const ChevronRightIcon = icons['chevron-right'];
     const ChevronDownIcon = icons['chevron-down'];
 
@@ -31,8 +31,6 @@ const HoverableButton: React.FC<HoverableButtonProps> = ({ title, onAddFile, onA
                 <div className="flex items-center justify-evenly">
                     <IconButton type="file-add" onClick={onAddFile} />
                     <IconButton type="folder-add" onClick={onAddFolder} />
-                    {/* <IconButton type="rename" onClick={console.log("hello")} />
-                    <IconButton type="delete" onClick={console.log("hello")} /> */}
                 </div>
             }
         </div>
